@@ -9,10 +9,37 @@ import tkinter as tk
 from tkinter import *
 
 window = tk.Tk()
+window.geometry('400x30')
 window.attributes("-topmost",True)
 
-entry1 = tk.Entry(window,width=20)
 
-entry1.pack()
+def multiplyButton():
+    num1 = int(entry1.get())
+    num2 = int(entry2.get())
+    value = num1 * num2
+    return value
+
+def entryCheck(text):
+    try:
+        text = int(text)
+    except:
+        return False
+    return True
+
+entry1 = tk.Entry(window, width=15, textvariable=IntVar(), validate='key',validatecommand=(window.register(entryCheck),'%P'))
+entry2 = tk.Entry(window, width=15, textvariable=IntVar(), validate='key',validatecommand=(window.register(entryCheck),'%P'))
+
+lable1 = tk.Label(window, text='X')
+lable2 = tk.Label(window, text=multiplyButton(), bg="#b4b1ce") #need lable to continually update
+
+button1 = tk.Button(window, text='=', command=multiplyButton)
+
+
+entry1.grid(row=1, column=1)
+lable1.grid(row=1, column=2)
+entry2.grid(row=1, column=3)
+button1.grid(row=1, column=4)
+lable2.grid(row=1, column=6)
+
 
 window.mainloop()
